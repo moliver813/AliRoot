@@ -43,6 +43,7 @@ ClassImp(AliEMCALTriggerElectronics) ;
 /// Constructor
 //__________________
 AliEMCALTriggerElectronics::AliEMCALTriggerElectronics(const AliEMCALTriggerDCSConfig *dcsConf) : TObject(),
+fADCscaleMC(1.231),
 fTRU(new TClonesArray("AliEMCALTriggerTRU",52)),
 fSTU(0x0),
 fGeometry(0)
@@ -314,7 +315,7 @@ void AliEMCALTriggerElectronics::Digits2Trigger(TClonesArray* digits, const Int_
           if (data->GetMode())
             etr->SetADC(iADC, time, 4 * amp);
           else
-            etr->SetADC(iADC, time,     amp);
+            etr->SetADC(iADC, time, (Int_t) (fADCscaleMC * amp));
         }
       }
     }
