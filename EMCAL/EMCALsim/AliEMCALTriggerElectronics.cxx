@@ -43,7 +43,7 @@ ClassImp(AliEMCALTriggerElectronics) ;
 /// Constructor
 //__________________
 AliEMCALTriggerElectronics::AliEMCALTriggerElectronics(const AliEMCALTriggerDCSConfig *dcsConf) : TObject(),
-fADCscaleMC(1.231),
+fADCscaleMC(1.07799),fADCscaleMCL1(1.14203),
 fTRU(new TClonesArray("AliEMCALTriggerTRU",52)),
 fSTU(0x0),
 fGeometry(0)
@@ -419,8 +419,11 @@ void AliEMCALTriggerElectronics::Digits2Trigger(TClonesArray* digits, const Int_
             
             // 14b to 12b STU time sums
             reg[j][k] >>= 2; 
-            
-            dig->SetL1TimeSum(reg[j][k]);
+
+            if (data->GetMode())
+              dig->SetL1TimeSum(reg[j][k]);
+            else // if MC
+              dig->SetL1TimeSum((Int_t) fADCscaleMCL1 * reg[j][k]);
           }
         }
       }

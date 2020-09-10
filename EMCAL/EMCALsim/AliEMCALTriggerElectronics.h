@@ -39,6 +39,7 @@ public:
 
   Float_t GetADCscaleMC() { return fADCscaleMC; }
   void SetADCscaleMC(Float_t input) { fADCscaleMC = input; }
+  void SetADCscaleMCL1(Float_t input) { fADCscaleMCL1 = input; }
   
   virtual AliEMCALTriggerTRU* GetTRU( Int_t iTRU ) {return (AliEMCALTriggerTRU*)fTRU->At(iTRU);}
   virtual AliEMCALTriggerSTU* GetSTU( Bool_t isDCAL = false ) {return isDCAL ? fSTUDCAL : fSTU;}
@@ -55,6 +56,7 @@ private:
  
   Int_t                fMedianMode; // 0 for no median subtraction, 1 for median sub.
   Float_t              fADCscaleMC; //< Scaling up MC raw digits so samples match total energy
+  Float_t              fADCscaleMCL1; //< Additional scaling for MC timesum to account for pulse shape difference
   TClonesArray*        fTRUDCAL;  //< 14 TRU
   AliEMCALTriggerSTU*  fSTUDCAL;  //< 1 STU for DCAL
  
